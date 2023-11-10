@@ -1,113 +1,157 @@
-import Image from 'next/image'
+"use client"
+import Navbar from '@/components/Navbar';
+import React, { useEffect, useState } from 'react'
 
-export default function Home() {
+
+
+
+
+const Page = () => {
+
+  
+  const [data, setData] = useState(null);
+  const [form, setForm] = useState({
+    sourceAirport: '',
+    destinationAirport: '',
+    date: '',
+    itineraryType: '',
+    sortOrder: '',
+    numAdults: '',
+    numSeniors: '',
+    classOfService: ''
+  });
+
+  const handleChange = (e) => {
+    setForm({
+      ...form,
+      [e.target.name]: e.target.value
+    });
+  };
+
+  
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+  
+    const url = `https://tripadvisor16.p.rapidapi.com/api/v1/flights/searchFlights?sourceAirportCode=${form.sourceAirport}&destinationAirportCode=${form.destinationAirport}&date=${form.date}&itineraryType=${form.itineraryType}&sortOrder=${form.sortOrder}&numAdults=${form.numAdults}&numSeniors=${form.numSeniors}&classOfService=${form.classOfService}&pageNumber=1&currencyCode=USD`;
+    const options = {
+      method: 'GET',
+      headers: {
+        'X-RapidAPI-Key': '9af04caad9msh9f611e6d6a354ccp161a5ejsnab7b325bc5ff',
+        'X-RapidAPI-Host': 'tripadvisor16.p.rapidapi.com'
+      }
+    };
+    try {
+      const response = await fetch(url, options);
+      const result = await response.text();
+      console.log(result);
+  
+      console.log("ho gya")
+   
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
+  useEffect(() => {
+    const fetchData = async () => {
+     
+       const url = `https://tripadvisor16.p.rapidapi.com/api/v1/flights/searchFlights?sourceAirportCode=${form.sourceAirport}&destinationAirportCode=${form.destinationAirport}&date=${form.date}&itineraryType=${form.itineraryType}&sortOrder=${form.sortOrder}&numAdults=${form.numAdults}&numSeniors=${form.numSeniors}&classOfService=${form.classOfService}&pageNumber=1&currencyCode=USD`;
+     
+const options = {
+	method: 'GET',
+	headers: {
+		'X-RapidAPI-Key': 'aa98f350a7msh54c0d50b2ffcd55p1eb4f6jsne536c76d3985',
+		'X-RapidAPI-Host': 'tripadvisor16.p.rapidapi.com'
+	}
+};
+
+
+
+try {
+	const response = await fetch(url, options);
+	const result = await response.json();
+  setData(result);
+	console.log(result);
+} catch (error) {
+	console.error(error);
+}
+    };
+
+    
+    if (form.sourceAirport && form.destinationAirport && form.date && form.itineraryType && form.sortOrder && form.numAdults && form.numSeniors && form.classOfService) {
+      fetchData();
+      console.log(data)
+    }
+   
+  }, [form]);
+
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between font-mono text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl dark:border-neutral-800 dark:bg-zinc-800/30 dark:from-inherit lg:static lg:w-auto  lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4 lg:dark:bg-zinc-800/30">
-          Get started by editing&nbsp;
-          <code className="font-mono font-bold">src/app/page.js</code>
-        </p>
-        <div className="fixed bottom-0 left-0 flex h-48 w-full items-end justify-center bg-gradient-to-t from-white via-white dark:from-black dark:via-black lg:static lg:h-auto lg:w-auto lg:bg-none">
-          <a
-            className="pointer-events-none flex place-items-center gap-2 p-8 lg:pointer-events-auto lg:p-0"
-            href="https://vercel.com?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            By{' '}
-            <Image
-              src="/vercel.svg"
-              alt="Vercel Logo"
-              className="dark:invert"
-              width={100}
-              height={24}
-              priority
-            />
-          </a>
-        </div>
-      </div>
+    <>
+    <div style={{ position: 'fixed', width: '100%', zIndex: 3 }}>
+    <Navbar  />
+    </div>
+    
+    <div
+    style={{
+      backgroundImage: `url("https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")`, 
+      backgroundPosition: 'center',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      height: '100vh',
+     
+      width: '100vw',
+      position: 'relative'
+    }}
+     >
+   <video autoPlay muted loop style={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', objectFit: 'cover', zIndex: -1 }}>
+      <source src="http://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4" type="video/mp4" />
+    </video>
 
-      <div className="relative flex place-items-center before:absolute before:h-[300px] before:w-[480px] before:-translate-x-1/2 before:rounded-full before:bg-gradient-radial before:from-white before:to-transparent before:blur-2xl before:content-[''] after:absolute after:-z-20 after:h-[180px] after:w-[240px] after:translate-x-1/3 after:bg-gradient-conic after:from-sky-200 after:via-blue-200 after:blur-2xl after:content-[''] before:dark:bg-gradient-to-br before:dark:from-transparent before:dark:to-blue-700 before:dark:opacity-10 after:dark:from-sky-900 after:dark:via-[#0141ff] after:dark:opacity-40 before:lg:h-[360px] z-[-1]">
-        <Image
-          className="relative dark:drop-shadow-[0_0_0.3rem_#ffffff70] dark:invert"
-          src="/next.svg"
-          alt="Next.js Logo"
-          width={180}
-          height={37}
-          priority
-        />
-      </div>
 
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-4 lg:text-left">
-        <a
-          href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Docs{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Find in-depth information about Next.js features and API.
-          </p>
-        </a>
 
-        <a
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800 hover:dark:bg-opacity-30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Learn{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Learn about Next.js in an interactive course with&nbsp;quizzes!
-          </p>
-        </a>
+    <div className="p-6 
+      drop-shadow-xl
+    max-w-sm mx-auto bg-white rounded-xl shadow-md flex items-center space-x-4 absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 z-10">
+      
+      <form className="space-y-4 " onSubmit={handleSubmit}>
+        <input className="border-2 border-gray-300 p-2 w-full" name="sourceAirport" value={form.sourceAirport} onChange={handleChange} placeholder="Source Airport" />
+        <input className="border-2 border-gray-300 p-2 w-full" name="destinationAirport" value={form.destinationAirport} onChange={handleChange} placeholder="Destination Airport" />
+        <input className="border-2 border-gray-300 p-2 w-full" type="date" name="date" value={form.date} onChange={handleChange} />
+        <select className="border-2 border-gray-300 p-2 w-full" name="sortOrder" value={form.sortOrder} onChange={handleChange}>
+          <option value="">Select Sort Order</option>
+          <option value="PRICE">Price</option>
+          <option value="DURATION">Duration</option>
+          
+          {/* Add more options as needed */}
+        </select>
+        <select className="border-2 border-gray-300 p-2 w-full" name="itineraryType" value={form.itineraryType} onChange={handleChange}>
+          <option value="">Select Itinerary Type</option>
+          <option value="ONE_WAY">One Way</option>
+          <option value="ROUND_TRIP">Round Trip</option>
+        </select>
+        <input className="border-2 border-gray-300 p-2 w-full" type="number" name="numAdults" value={form.numAdults} onChange={handleChange} placeholder="Number of Adults" />
+        <input className="border-2 border-gray-300 p-2 w-full" type="number" name="numSeniors" value={form.numSeniors} onChange={handleChange} placeholder="Number of Seniors" />
+        <select className="border-2 border-gray-300 p-2 w-full" name="classOfService" value={form.classOfService} onChange={handleChange}>
+          <option value="">Select Class of Service</option>
+          <option value="ECONOMY">Economy</option>
+          <option value="BUSINESS">Business</option>
+          <option value="FIRST">First</option>
+          <option value="PREMIUM_ECONOMY">Premium Economy</option>
+        </select>
+        <button type="submit" className="border-2 border-blue-300 bg-blue-800 first-letter p-2 w-full">Submit</button>
+      </form>
 
-        <a
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Templates{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Explore starter templates for Next.js.
-          </p>
-        </a>
 
-        <a
-          href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-          className="group rounded-lg border border-transparent px-5 py-4 transition-colors hover:border-gray-300 hover:bg-gray-100 hover:dark:border-neutral-700 hover:dark:bg-neutral-800/30"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <h2 className={`mb-3 text-2xl font-semibold`}>
-            Deploy{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              -&gt;
-            </span>
-          </h2>
-          <p className={`m-0 max-w-[30ch] text-sm opacity-50`}>
-            Instantly deploy your Next.js site to a shareable URL with Vercel.
-          </p>
-        </a>
-      </div>
-    </main>
+    </div>
+ 
+    </div>
+
+ 
+
+
+    </>
   )
 }
+
+export default Page;
