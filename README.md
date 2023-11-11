@@ -25,9 +25,9 @@ npm run dev
 
 Fill in the form with your desired flight details and click "Submit". The flight results will be displayed below.
 
-##Screenshot
 
-![Screenshot](./assets/ss_traveladvisor.png)
+
+![Screenshot](./src/assets/ss_tripadvisor.png)
 
 ## Contributing
 
