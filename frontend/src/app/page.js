@@ -38,7 +38,7 @@ const Page = () => {
     const options = {
       method: 'GET',
       headers: {
-        'X-RapidAPI-Key': '21662491c8msh89d5ac294f79e48p1b7ad3jsn7dc8ae2a91c8',
+        'X-RapidAPI-Key':  process.env.NEXT_PUBLIC_RAPID_API_KEY,
         'X-RapidAPI-Host': 'tripadvisor16.p.rapidapi.com'
       }
     };
@@ -60,7 +60,7 @@ const Page = () => {
 const options = {
 	method: 'GET',
 	headers: {
-		'X-RapidAPI-Key': '921662491c8msh89d5ac294f79e48p1b7ad3jsn7dc8ae2a91c8',
+		'X-RapidAPI-Key': "RAPID_API_KEY",
 		'X-RapidAPI-Host': 'tripadvisor16.p.rapidapi.com'
 	}
 };
