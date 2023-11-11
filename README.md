@@ -25,10 +25,16 @@ npm run dev
 
 Fill in the form with your desired flight details and click "Submit". The flight results will be displayed below.
 
+<<<<<<< HEAD
 ## Screenshot
 
 ![Screenshot](./src/assets/ss_tripadvisor.png)
     
+=======
+
+
+![Screenshot](./src/assets/ss_tripadvisor.png)
+>>>>>>> 03878b20b72abad04b14c9691e9048ad64195ded
 
 ## Contributing
 
