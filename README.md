@@ -28,7 +28,7 @@ Fill in the form with your desired flight details and click "Submit". The flight
 
 ## Screenshot
 
-![Screenshot](./src/assets/ss_tripadvisor.png)
+![Screenshot](./ss_traveladvisor.png)
     
 
 
