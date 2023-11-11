@@ -25,6 +25,10 @@ npm run dev
 
 Fill in the form with your desired flight details and click "Submit". The flight results will be displayed below.
 
+##Screenshot
+
+![Screenshot](./assets/ss_traveladvisor.png)
+
 ## Contributing
 
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
