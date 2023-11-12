@@ -1,13 +1,17 @@
 "use client"
 import Navbar from '@/components/Navbar';
 import React, { useEffect, useState } from 'react'
-import { Link } from 'next/link';
+import  Link  from 'next/link';
+import {useRouter} from 'next/navigation'
+
+
 
 
 
 
 
 const Page = () => {
+  const router = useRouter();
 
   
   const [data, setData] = useState([]);
@@ -31,26 +35,7 @@ const Page = () => {
 
   
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-  
-    const url = `https://tripadvisor16.p.rapidapi.com/api/v1/flights/searchFlights?sourceAirportCode=${form.sourceAirport}&destinationAirportCode=${form.destinationAirport}&date=${form.date}&itineraryType=${form.itineraryType}&sortOrder=${form.sortOrder}&numAdults=${form.numAdults}&numSeniors=${form.numSeniors}&classOfService=${form.classOfService}&pageNumber=1&currencyCode=USD`;
-    const options = {
-      method: 'GET',
-      headers: {
-        'X-RapidAPI-Key':  process.env.NEXT_PUBLIC_RAPID_API_KEY,
-        'X-RapidAPI-Host': 'tripadvisor16.p.rapidapi.com'
-      }
-    };
-    try {
-      const response = await fetch(url, options);
-      const result = await response.text();
-     
-   
-    } catch (error) {
-      console.error(error);
-    }
-  };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -60,7 +45,7 @@ const Page = () => {
 const options = {
 	method: 'GET',
 	headers: {
-		'X-RapidAPI-Key': "RAPID_API_KEY",
+		'X-RapidAPI-Key': "18228c7ebcmshf40dfad60eddb11p104728jsnc99f6f9609fb",
 		'X-RapidAPI-Host': 'tripadvisor16.p.rapidapi.com'
 	}
 };
@@ -68,9 +53,9 @@ const options = {
 try {
 	const response = await fetch(url, options);
 	const result = await response.json();
-  console.log(result)
+  
   setData(result);
-	console.log(result);
+	
 } catch (error) {
 	console.error(error);
 }
@@ -79,10 +64,23 @@ try {
     
     if (form.sourceAirport && form.destinationAirport && form.date && form.itineraryType && form.sortOrder && form.numAdults && form.numSeniors && form.classOfService) {
       fetchData();
-      console.log(data)
+      
     }
    
   }, [form]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if (data) {
+      router.push({
+        pathname: '/results',
+        query: { data: JSON.stringify(data) },
+      });
+    } else {
+      console.log("No data to submit");
+    }
+  };
 
 
   return (
@@ -99,6 +97,8 @@ try {
     }}>
     <Navbar  />
     </div>
+
+    
     
     <div
     style={{
@@ -148,8 +148,10 @@ try {
           <option value="FIRST">First</option>
           <option value="PREMIUM_ECONOMY">Premium Economy</option>
         </select>
+      
+       <button type="submit" className="border-2 border-blue-300 bg-blue-800 first-letter p-2 w-full">Submit</button>
+
        
-        <button type="submit" className="border-2 border-blue-300 bg-blue-800 first-letter p-2 w-full">Submit</button>
 
         
       </form>
@@ -162,7 +164,7 @@ try {
     <div>
       <h1>Results</h1>
       
-      {data && data.length > 0 ? (
+      {Array.isArray(data) ? (
           data.map((flight, index) => (
             <div key={index}>
               <h2>Flight {index + 1}</h2>
@@ -185,9 +187,9 @@ try {
           <p>No data available</p>
         )}</div>
 
-    <footer style={{ backgroundColor: '#f8f9fa', padding: '10px', position: 'fixed', width: '100%', bottom: '0' }}>
+    {/* <footer style={{ backgroundColor: '#f8f9fa', padding: '10px', position: 'fixed', width: '100%', bottom: '0' }}>
       <p style={{ textAlign: 'center' }}>© 2022 Your Company Name</p>
-    </footer>
+    </footer> */}
 
     </>
   )
