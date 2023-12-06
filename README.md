@@ -3,7 +3,7 @@
 This is a flight search website built with Next.js and React. It uses the TripAdvisor API to fetch flight data based on user input.
 
 ## Features
-
+a
 - Search flights by source and destination airports, date, itinerary type, sort order, number of adults and seniors, and class of service.
 - Display flight results with detailed information.
 - Responsive design.
